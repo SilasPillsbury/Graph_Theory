@@ -48,6 +48,25 @@ def generate(num_nodes,run_time,p=False):
     print(edge_chance-r.randint(0,num_nodes)-((x*num_nodes**2)//run_time))
     return G_set,set_of_degrees
 
+def test_unique_degree(G_set):
+    G_same_deg = []
+    for G in G_set:
+        degrees = []
+        for node in G:
+            degrees.append(len(G[node]))
+        degrees.sort()
+        x = 0
+        unique = False
+        if not(degrees[0] < degrees[1]):
+            while x < len(degrees)-3:
+                if degrees[x] < degrees[x+1] and degrees[x+1] < degrees[x+2]:
+                    unique = True
+                    break
+                x += 1
+        if not unique: G_same_deg.append(G)
+    return G_same_deg
+            
+
 def max_deg(G):
     degrees = []
     for x in G:
